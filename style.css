@@ -1,0 +1,12 @@
+body, html {
+    margin: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#library {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+

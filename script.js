@@ -12,17 +12,25 @@ function addToLibrary(book) {
 }
 
 const book1 = new Book('The Lightning Thief', 'Rick Riordan', 'Read');
+const book2 = new Book('Harry Potter', 'JK Rowling', 'Read');
 
 addToLibrary(book1);
+addToLibrary(book2);
 
 function displayLibrary() {
-    const newBook = document.createElement('div');
     myLibrary.forEach((book) => {
+        const newBook = document.createElement('div');
         libraryDisplay.appendChild(newBook);
         newBook.classList.add('book');
         const title = newBook.appendChild(document.createElement('div'));
         title.classList.add('title');
         title.innerText = book.title;
+        const author = newBook.appendChild(document.createElement('div'));
+        author.classList.add('author');
+        author.innerText = book.author;
+        const readStatus = newBook.appendChild(document.createElement('div'));
+        readStatus.classList.add('read-status');
+        readStatus.innerText = book.readStatus;
     })
 }
 
