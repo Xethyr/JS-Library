@@ -10,3 +10,6 @@ body, html {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
+.book {
+    text-align: center;
+}
