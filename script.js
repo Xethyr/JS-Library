@@ -12,7 +12,7 @@ function addToLibrary(book) {
 }
 
 const book1 = new Book('The Lightning Thief', 'Rick Riordan', 'Read');
-const book2 = new Book('Harry Potter', 'JK Rowling', 'Read');
+const book2 = new Book('Harry Potter', 'JK Rowling', 'Not Read');
 
 addToLibrary(book1);
 addToLibrary(book2);
@@ -43,19 +43,30 @@ function displayLibrary() {
     })
 }
 
-
+function clearDisplay() {
+    while (libraryDisplay.firstChild) {
+        libraryDisplay.removeChild(libraryDisplay.firstChild);
+    }
+    i = 0;
+}
 
 displayLibrary();
 
 function toggleReadStatus(id) {
-    for (let i = 0; i < myLibrary.length; i++) {
-        if (id === i) {
-            if (myLibrary[i].readStatus = 'Read') {
-                myLibrary[i].readStatus = 'Not Read';
+    for (let j = 0; j < myLibrary.length; j++) {
+        console.log(j);
+        if (id = j) {
+            if (myLibrary[j].readStatus = 'Read') {
+                myLibrary[j].readStatus = 'Not Read';
+                console.log(myLibrary);
+            } else if (myLibrary[j].readStatus = 'Not Read') {
+                myLibrary[j].readStatus = 'Read';
                 console.log(myLibrary);
             }
         }
     }
+    clearDisplay();
+    displayLibrary();
 }
 
 const deleteButtons = document.querySelectorAll('.delete-button');
@@ -70,3 +81,4 @@ toggleBtns.forEach((button) => button.addEventListener('click', () => {
     console.log(button.id);
     toggleReadStatus(button.id);
 }))
+
