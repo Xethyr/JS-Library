@@ -1,5 +1,14 @@
 let myLibrary = [];
+
 const libraryDisplay = document.getElementById('library');
+const dialog = document.querySelector('dialog');
+
+// Variables for the form inputs and buttons
+const showFormButton = document.getElementById('add-book');
+const submitFormButton = document.getElementById('submit-btn');
+const bookTitleInput = document.getElementById('book-title');
+const bookAuthorInput = document.getElementById('book-author');
+const readStatusInput = document.getElementById('read-status');
 
 function Book(title, author, readStatus) {
     this.title = title;
@@ -35,11 +44,11 @@ function displayLibrary() {
         const deleteButton = newBook.appendChild(document.createElement('button'));
         deleteButton.classList.add('delete-button');
         deleteButton.innerText = 'Delete';
-        const toggleReadBtn = newBook.appendChild(document.createElement('button'));
-        toggleReadBtn.setAttribute('id', i);
-        toggleReadBtn.classList.add('toggle-btn');
-        toggleReadBtn.innerText = 'Toggle Read';
-        i++;
+        // const toggleReadBtn = newBook.appendChild(document.createElement('button'));
+        // toggleReadBtn.setAttribute('id', i);
+        // toggleReadBtn.classList.add('toggle-btn');
+        // toggleReadBtn.innerText = 'Toggle Read';
+        // i++;
     })
 }
 
@@ -52,22 +61,20 @@ function clearDisplay() {
 
 displayLibrary();
 
-function toggleReadStatus(id) {
-    for (let j = 0; j < myLibrary.length; j++) {
-        console.log(j);
-        if (id = j) {
-            if (myLibrary[j].readStatus = 'Read') {
-                myLibrary[j].readStatus = 'Not Read';
-                console.log(myLibrary);
-            } else if (myLibrary[j].readStatus = 'Not Read') {
-                myLibrary[j].readStatus = 'Read';
-                console.log(myLibrary);
-            }
-        }
-    }
-    clearDisplay();
-    displayLibrary();
-}
+// function toggleReadStatus(id) {
+//     for (let j = 0; j < myLibrary.length; j++) {
+//         console.log(j);
+//         if (id = j) {
+//             if (myLibrary[j].readStatus = 'Read') {
+//                 myLibrary[j].readStatus = 'Not Read';
+//                 console.log(myLibrary[j]);
+//             } else if (myLibrary[j].readStatus = 'Not Read') {
+//                 myLibrary[j].readStatus = 'Read';
+//                 console.log(myLibrary[j]);
+//             }
+//         }
+//     }
+// }
 
 const deleteButtons = document.querySelectorAll('.delete-button');
 
@@ -75,10 +82,17 @@ deleteButtons.forEach((button) => button.addEventListener('click', (e) => {
     e.target.parentElement.remove();
 }))
 
-const toggleBtns = document.querySelectorAll('.toggle-btn');
+// const toggleBtns = document.querySelectorAll('.toggle-btn');
 
-toggleBtns.forEach((button) => button.addEventListener('click', () => {
-    console.log(button.id);
-    toggleReadStatus(button.id);
-}))
+// toggleBtns.forEach((button) => button.addEventListener('click', () => {
+//     console.log(button.id);
+//     toggleReadStatus(button.id);
+// }))
 
+showFormButton.addEventListener('click', () => {
+    dialog.showModal();
+})
+
+submitFormButton.addEventListener('click', () => {
+    dialog.close();
+})
