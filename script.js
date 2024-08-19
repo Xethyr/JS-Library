@@ -13,15 +13,17 @@ const readStatusInput = document.getElementById('read-status');
 function Book(title, author, readStatus) {
     this.title = title;
     this.author = author;
-    this.readStatus = readStatus;
+    this.readStatus = readStatus ? 'Read' : 'Not Read';
 }
+
+
 
 function addToLibrary(book) {
     myLibrary.push(book);
 }
 
-const book1 = new Book('The Lightning Thief', 'Rick Riordan', 'Read');
-const book2 = new Book('Harry Potter', 'JK Rowling', 'Not Read');
+const book1 = new Book('The Lightning Thief', 'Rick Riordan', false);
+const book2 = new Book('Harry Potter', 'JK Rowling', true);
 
 addToLibrary(book1);
 addToLibrary(book2);
@@ -61,6 +63,18 @@ function clearDisplay() {
 
 displayLibrary();
 
+function handleNewBook(title, author, read) {
+    let newBook = null
+    if (read === 'Yes') {
+        newBook = new Book(title, author, true);
+    } else {
+        newBook = new Book(title, author, false);
+    }
+    addToLibrary(newBook);
+    clearDisplay();
+    displayLibrary();
+}
+
 // function toggleReadStatus(id) {
 //     for (let j = 0; j < myLibrary.length; j++) {
 //         console.log(j);
@@ -94,5 +108,9 @@ showFormButton.addEventListener('click', () => {
 })
 
 submitFormButton.addEventListener('click', () => {
+    handleNewBook(bookTitleInput.value, bookAuthorInput.value, readStatusInput.value);
+    bookTitleInput.value = '';
+    bookAuthorInput.value = '';
+    readStatusInput.selectedIndex = 0;
     dialog.close();
 })
