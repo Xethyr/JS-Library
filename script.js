@@ -34,6 +34,7 @@ function displayLibrary() {
         const newBook = document.createElement('div');
         libraryDisplay.appendChild(newBook);
         newBook.classList.add('book');
+        newBook.setAttribute('id', i);
         const title = newBook.appendChild(document.createElement('div'));
         title.classList.add('title');
         title.innerText = book.title;
@@ -50,8 +51,12 @@ function displayLibrary() {
         // toggleReadBtn.setAttribute('id', i);
         // toggleReadBtn.classList.add('toggle-btn');
         // toggleReadBtn.innerText = 'Toggle Read';
-        // i++;
+        i++;
     })
+}
+
+function deleteBook(id) {
+   return myLibrary.toSpliced(id, 1);
 }
 
 function clearDisplay() {
