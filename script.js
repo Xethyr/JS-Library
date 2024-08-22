@@ -26,11 +26,12 @@ const book1 = new Book('The Lightning Thief', 'Rick Riordan', false);
 const book2 = new Book('Harry Potter', 'JK Rowling', true);
 
 addToLibrary(book1);
-addToLibrary(book2);
+
+
 let i = 0;
 
-function displayLibrary() {
-    myLibrary.forEach((book) => {
+function displayLibrary(library) {
+    library.forEach((book) => {
         const newBook = document.createElement('div');
         libraryDisplay.appendChild(newBook);
         newBook.classList.add('book');
@@ -55,9 +56,7 @@ function displayLibrary() {
     })
 }
 
-function deleteBook(id) {
-   return myLibrary.toSpliced(id, 1);
-}
+displayLibrary(myLibrary);
 
 function clearDisplay() {
     while (libraryDisplay.firstChild) {
@@ -66,10 +65,8 @@ function clearDisplay() {
     i = 0;
 }
 
-displayLibrary();
-
 function handleNewBook(title, author, read) {
-    let newBook = null
+    let newBook;
     if (read === 'Yes') {
         newBook = new Book(title, author, true);
     } else {
@@ -77,7 +74,7 @@ function handleNewBook(title, author, read) {
     }
     addToLibrary(newBook);
     clearDisplay();
-    displayLibrary();
+    displayLibrary(myLibrary);
 }
 
 // function toggleReadStatus(id) {
@@ -98,7 +95,10 @@ function handleNewBook(title, author, read) {
 const deleteButtons = document.querySelectorAll('.delete-button');
 
 deleteButtons.forEach((button) => button.addEventListener('click', (e) => {
-    e.target.parentElement.remove();
+    console.log(e.target.parentElement.id);
+    let bookId = e.target.parentElement.id;
+    clearDisplay();
+    displayLibrary(myLibrary.toSpliced(bookId, 1));
 }))
 
 // const toggleBtns = document.querySelectorAll('.toggle-btn');
