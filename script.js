@@ -31,7 +31,7 @@ addToLibrary(book1);
 let i = 0;
 
 function displayLibrary(library) {
-    library.forEach((book) => {
+    library.forEach((book, index) => {
         const newBook = document.createElement('div');
         libraryDisplay.appendChild(newBook);
         newBook.classList.add('book');
@@ -48,6 +48,11 @@ function displayLibrary(library) {
         const deleteButton = newBook.appendChild(document.createElement('button'));
         deleteButton.classList.add('delete-button');
         deleteButton.innerText = 'Delete';
+        deleteButton.addEventListener('click', (e) => {
+            clearDisplay();
+            myLibrary = myLibrary.filter((_, index) => index != e.target.parentElement.id);
+            displayLibrary(myLibrary);
+        })
         // const toggleReadBtn = newBook.appendChild(document.createElement('button'));
         // toggleReadBtn.setAttribute('id', i);
         // toggleReadBtn.classList.add('toggle-btn');
@@ -81,8 +86,8 @@ function handleNewBook(title, author, read) {
 //     for (let j = 0; j < myLibrary.length; j++) {
 //         console.log(j);
 //         if (id = j) {
-//             if (myLibrary[j].readStatus = 'Read') {
-//                 myLibrary[j].readStatus = 'Not Read';
+//             if (myLibrary[j].readStatus === 'Read') {
+//                 myLibrary[j].readStatus === 'Not Read';
 //                 console.log(myLibrary[j]);
 //             } else if (myLibrary[j].readStatus = 'Not Read') {
 //                 myLibrary[j].readStatus = 'Read';
@@ -92,14 +97,7 @@ function handleNewBook(title, author, read) {
 //     }
 // }
 
-const deleteButtons = document.querySelectorAll('.delete-button');
 
-deleteButtons.forEach((button) => button.addEventListener('click', (e) => {
-    console.log(e.target.parentElement.id);
-    let bookId = e.target.parentElement.id;
-    clearDisplay();
-    displayLibrary(myLibrary.toSpliced(bookId, 1));
-}))
 
 // const toggleBtns = document.querySelectorAll('.toggle-btn');
 
