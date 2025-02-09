@@ -28,14 +28,14 @@ const book2 = new Book('Harry Potter', 'JK Rowling', true);
 addToLibrary(book1);
 
 
-let i = 0;
+
 
 function displayLibrary(library) {
     library.forEach((book, index) => {
         const newBook = document.createElement('div');
         libraryDisplay.appendChild(newBook);
         newBook.classList.add('book');
-        newBook.setAttribute('id', i);
+        newBook.setAttribute('data-index', index); // Use data-index instead of id
         const title = newBook.appendChild(document.createElement('div'));
         title.classList.add('title');
         title.innerText = book.title;
@@ -49,16 +49,22 @@ function displayLibrary(library) {
         deleteButton.classList.add('delete-button');
         deleteButton.innerText = 'Delete';
         deleteButton.addEventListener('click', (e) => {
+            const indexToRemove = parseInt(e.target.parentElement.getAttribute('data-index'));
             clearDisplay();
-            myLibrary = myLibrary.filter((_, index) => index != e.target.parentElement.id);
+            myLibrary.splice(indexToRemove, 1); // Use splice for removing by index
             displayLibrary(myLibrary);
-        })
-        // const toggleReadBtn = newBook.appendChild(document.createElement('button'));
-        // toggleReadBtn.setAttribute('id', i);
-        // toggleReadBtn.classList.add('toggle-btn');
-        // toggleReadBtn.innerText = 'Toggle Read';
-        i++;
-    })
+        });
+
+        const toggleReadBtn = newBook.appendChild(document.createElement('button'));
+        toggleReadBtn.classList.add('toggle-btn');
+        toggleReadBtn.innerText = 'Toggle Read';
+        toggleReadBtn.addEventListener('click', (e) => {
+            const indexToToggle = parseInt(e.target.parentElement.getAttribute('data-index'));
+            myLibrary[indexToToggle].readStatus = myLibrary[indexToToggle].readStatus === 'Read' ? 'Not Read' : 'Read';
+            clearDisplay();
+            displayLibrary(myLibrary);
+        });
+    });
 }
 
 displayLibrary(myLibrary);
@@ -67,7 +73,6 @@ function clearDisplay() {
     while (libraryDisplay.firstChild) {
         libraryDisplay.removeChild(libraryDisplay.firstChild);
     }
-    i = 0;
 }
 
 function handleNewBook(title, author, read) {
@@ -82,33 +87,9 @@ function handleNewBook(title, author, read) {
     displayLibrary(myLibrary);
 }
 
-// function toggleReadStatus(id) {
-//     for (let j = 0; j < myLibrary.length; j++) {
-//         console.log(j);
-//         if (id = j) {
-//             if (myLibrary[j].readStatus === 'Read') {
-//                 myLibrary[j].readStatus === 'Not Read';
-//                 console.log(myLibrary[j]);
-//             } else if (myLibrary[j].readStatus = 'Not Read') {
-//                 myLibrary[j].readStatus = 'Read';
-//                 console.log(myLibrary[j]);
-//             }
-//         }
-//     }
-// }
-
-
-
-// const toggleBtns = document.querySelectorAll('.toggle-btn');
-
-// toggleBtns.forEach((button) => button.addEventListener('click', () => {
-//     console.log(button.id);
-//     toggleReadStatus(button.id);
-// }))
-
 showFormButton.addEventListener('click', () => {
     dialog.showModal();
-})
+});
 
 submitFormButton.addEventListener('click', () => {
     handleNewBook(bookTitleInput.value, bookAuthorInput.value, readStatusInput.value);
@@ -116,4 +97,4 @@ submitFormButton.addEventListener('click', () => {
     bookAuthorInput.value = '';
     readStatusInput.selectedIndex = 0;
     dialog.close();
-})
+});
